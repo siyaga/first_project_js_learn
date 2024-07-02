@@ -12,12 +12,14 @@ router.get(
   asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1; // Get page number from query parameter, default to 1
     const limit = parseInt(req.query.limit) || 10; // Get limit from query parameter, default to 10
+    const search = req.query.search || ""; // Get limit from query parameter, default to 10
 
     const offset = (page - 1) * limit; // Calculate offset for pagination
 
     const { count, rows } = await users.getAll({
       limit,
       offset,
+      search,
     });
     const data = rows || null;
     const total = count || 0;
